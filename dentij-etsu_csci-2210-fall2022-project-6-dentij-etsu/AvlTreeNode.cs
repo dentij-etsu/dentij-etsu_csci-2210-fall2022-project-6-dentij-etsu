@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// Author: Jackson Denti, dentij@etsu.edu
+// Course: CSCI-2210-001 - Data Structures
+// Assignment: Project 6
+// Description: NuGet implementation of AVL Tree Node, Extending from the Binary Search Tree Node
+//              Borrowed from class textbook
+//
+///////////////////////////////////////////////////////////////////////////////
+
 namespace System.DataStructures
 {
 	/// <summary>

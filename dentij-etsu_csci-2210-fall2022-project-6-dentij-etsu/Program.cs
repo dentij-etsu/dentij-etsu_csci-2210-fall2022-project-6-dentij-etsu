@@ -1,4 +1,15 @@
-﻿using LibraryApp;
+﻿///////////////////////////////////////////////////////////////////////////////
+//
+// Author: Jackson Denti, dentij@etsu.edu
+// Course: CSCI-2210-001 - Data Structures
+// Assignment: Project 6
+// Description: Driving class with main method for project
+//              Reads data in from CSV and creates AVL Trees from data
+//              Implements user driven menu using console and keyboard
+//
+///////////////////////////////////////////////////////////////////////////////
+
+using LibraryApp;
 using Microsoft.VisualBasic.FileIO;
 using System.Collections.Generic;
 using System.DataStructures;
@@ -8,7 +19,10 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
 {
     internal class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Main Method for program
+        /// </summary>
+        static void Main()
         {
 
             AvlTree<Book> titleSortedTree = new AvlTree<Book>();
@@ -36,9 +50,11 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
             {
                 Console.Clear();
                 Console.WriteLine("Welcome to the \"Insert Library Name here\" Library\nPlease Type an option corresponding to what you'd like to do.\n\n" +
-                    "1: Diplay All Books\n2: Display Checked Out Books\n3: Change Sorting Key\n4: Check out book\n5: Check in book");
-                option = Int32.Parse(Console.ReadLine());
+                    "1: Diplay All Books\n2: Display Checked Out Books\n3: Change Sorting Key\n4: Check out book\n5: Check in book\n6: Quit");
+                try   { option = Int32.Parse(Console.ReadLine()); }
+                catch { option = -1; }
 
+                // Code for user wanting to display all books
                 if(option == 1)
                 {
                     Console.Clear();
@@ -53,6 +69,8 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                     Console.WriteLine("\nPress Enter to continue");
                     Console.ReadLine();
                 }
+
+                //
                 if (option == 2)
                 {
                     Console.Clear();
@@ -68,6 +86,7 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                     Console.ReadLine();
                 }
 
+                //
                 if(option == 3)
                 {
                     int sortingOption = 0;
@@ -75,28 +94,21 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                     {
                         Console.WriteLine("Please type a digit corresponding with the field you would like to sort by:\n1 - Title, 2 - Author, 3 - Publisher");
                         sortingOption = Int32.Parse(Console.ReadLine());
-                        
-                        if(sortingOption == 3)
-                        {
-                            currentTree = publisherSortedTree;
-                        }
-                        else if(sortingOption == 2)
-                        {
-                            currentTree = authorSortedTree;
-                        }
-                        else
-                        {
-                            currentTree = titleSortedTree;
-                        }
-                    }
-                    
+                        if (sortingOption == 1) currentTree = titleSortedTree;
+                        if (sortingOption == 2) currentTree = authorSortedTree;
+                        if (sortingOption == 3) currentTree = publisherSortedTree;
+                    }                   
                 }
+
+                //
                 if(option == 4)
                 {
                     Console.Clear();
                     Console.WriteLine("Please type in the title of the book to check out:\n");
                     CheckOutBook(Console.ReadLine());
                 }
+
+                //
                 if(option == 5)
                 {
                     Console.Clear();
@@ -104,9 +116,31 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                     CheckInBook(Console.ReadLine());
                 }
                 Console.WriteLine("\n\n");
+
+                //
+                if(option == 6)
+                {
+                    option = 0;
+                }
+
+                //
+                if(option == -1)
+                {
+                    Console.WriteLine("ERROR: typed value could not be understood. Please type an appropriate digit.");
+                    Console.WriteLine("\nPress Enter to continue");
+                    Console.ReadLine();
+                }
             }
             while (option != 0);
 
+            Console.Clear();
+            Console.WriteLine("Thank you for using this Library Application!");
+            Thread.Sleep(4000);
+
+            /// <summary>
+            /// Private method to Remove books from tree by title
+            /// </summary>
+            /// <param name="titleToSearchFor"> Title of book to searched for (case insensitive) </param>
             void CheckOutBook(string titleToSearchFor)
             {
                 List<Book> books = currentTree.GetInorderEnumerator().ToList();
@@ -121,6 +155,11 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                     }
                 }
             }
+
+            /// <summary>
+            /// Private method to add books from tree by title
+            /// </summary>
+            /// <param name="titleToSearchFor"> Title of book to searched for (case insensitive) </param>
             void CheckInBook(string titleToSearchFor)
             {
                 List<Book> books = checkedOutTree.GetInorderEnumerator().ToList();
@@ -137,6 +176,12 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
             }
         }
 
+        /// <summary>
+        /// Takes a comma delimited field with commas in the data and appropriately sanitizes it and splits it, then returns as list
+        /// Borrowed from Jake Gillenwater
+        /// </summary>
+        /// <param name="lineFromCSV"> Line from CSV containing commas in data fields </param>
+        /// <returns> List of strings, santized of commas </returns>
         public static List<string> ProcessCSVLine(string lineFromCSV)
         {
             // Split it based on a comma

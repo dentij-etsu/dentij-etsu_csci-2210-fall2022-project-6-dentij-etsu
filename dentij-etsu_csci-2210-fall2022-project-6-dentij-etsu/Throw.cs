@@ -3,7 +3,8 @@
 // Author: Jackson Denti, dentij@etsu.edu
 // Course: CSCI-2210-001 - Data Structures
 // Assignment: Project 6
-// Description: 
+// Description: No clue what this is, used for NuGet Implementation of an AVL Tree
+//              Borrowed from class textbook
 //
 ///////////////////////////////////////////////////////////////////////////////
 

@@ -3,7 +3,7 @@
 // Author: Jackson Denti, dentij@etsu.edu
 // Course: CSCI-2210-001 - Data Structures
 // Assignment: Project 6
-// Description: 
+// Description: Class to manage objects depicting books
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -30,6 +30,7 @@ namespace LibraryApp
         public Book()
         {
         }
+
         /// <summary>
         /// Overloaded Constructor with inputs for all fields
         /// </summary>
@@ -45,6 +46,7 @@ namespace LibraryApp
             this.Publisher = publisher;
             this.sortKey = 1;
         }
+
         /// <summary>
         /// Overloaded Constructor with inputs for all fields and sorting key
         /// </summary>
@@ -61,6 +63,7 @@ namespace LibraryApp
             this.Publisher = publisher;
             this.sortKey = sortKey;
         }
+
         /// <summary>
         /// Method to printed all book details to console
         /// </summary>
@@ -76,6 +79,7 @@ namespace LibraryApp
             }
 
         }
+
         /// <summary>
         /// Implementation of CompareTo method for IComparable Interface
         /// </summary>
