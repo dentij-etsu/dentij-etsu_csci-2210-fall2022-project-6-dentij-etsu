@@ -78,7 +78,6 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                 {
                     Console.Clear();
                     List<Book> books = checkedOutTree.GetInorderEnumerator().ToList();
-                    int count = 0;
 
                     foreach (Book book in books)
                     {
