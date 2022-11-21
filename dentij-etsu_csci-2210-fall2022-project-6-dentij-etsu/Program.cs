@@ -34,7 +34,7 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
             List<string> CSVFields = new List<string>();
             
             
-
+            // Reads all data from CSV to create appropriate AVL Trees
             while (sr.Peek() > -1)
             {
                 CSVFields = ProcessCSVLine(sr.ReadLine());
@@ -43,23 +43,26 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                 publisherSortedTree.Add(new Book(CSVFields[0], CSVFields[1], Int32.Parse(CSVFields[2]), CSVFields[3], 2));
             }
 
+            // The currentTree variable is use to determine book field the user currently wants the books sorted by
             AvlTree<Book> currentTree = titleSortedTree;          
 
-            int option = 1;
+
+            // User driven menu through console and keyboard
+            // I know a pile of "if" statments makes me look like a 1250 student, but it was easier to visual manage the code compared to a switch statement
+            int option;
             do
             {
                 Console.Clear();
                 Console.WriteLine("Welcome to the \"Insert Library Name here\" Library\nPlease Type an option corresponding to what you'd like to do.\n\n" +
                     "1: Diplay All Books\n2: Display Checked Out Books\n3: Change Sorting Key\n4: Check out book\n5: Check in book\n6: Quit");
                 try   { option = Int32.Parse(Console.ReadLine()); }
-                catch { option = -1; }
+                catch { option = 0; }
 
                 // Code for user wanting to display all books
                 if(option == 1)
                 {
                     Console.Clear();
                     List<Book> books = currentTree.GetInorderEnumerator().ToList();
-                    int count = 0;
 
                     foreach (Book book in books)
                     {
@@ -70,7 +73,7 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                     Console.ReadLine();
                 }
 
-                //
+                // Code for user wanting to display all books currently checked out
                 if (option == 2)
                 {
                     Console.Clear();
@@ -86,7 +89,7 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                     Console.ReadLine();
                 }
 
-                //
+                // Code if user would like to change what key is used to sort books, functionally just a visual change
                 if(option == 3)
                 {
                     int sortingOption = 0;
@@ -100,7 +103,7 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                     }                   
                 }
 
-                //
+                // Code if user wants to check a book out of the system
                 if(option == 4)
                 {
                     Console.Clear();
@@ -108,7 +111,7 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                     CheckOutBook(Console.ReadLine());
                 }
 
-                //
+                // Code if user wants to check book in to the system
                 if(option == 5)
                 {
                     Console.Clear();
@@ -117,22 +120,18 @@ namespace dentij_etsu_csci_2210_fall2022_project_6_dentij_etsu
                 }
                 Console.WriteLine("\n\n");
 
-                //
-                if(option == 6)
+                // Code used if user enters any value outside of accepted digits
+                if(option == 0)
                 {
-                    option = 0;
-                }
-
-                //
-                if(option == -1)
-                {
+                    Console.Clear();
                     Console.WriteLine("ERROR: typed value could not be understood. Please type an appropriate digit.");
                     Console.WriteLine("\nPress Enter to continue");
                     Console.ReadLine();
                 }
             }
-            while (option != 0);
+            while (option != 6);
 
+            // Displays Exit message as end of program
             Console.Clear();
             Console.WriteLine("Thank you for using this Library Application!");
             Thread.Sleep(4000);
